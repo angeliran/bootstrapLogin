@@ -14,19 +14,22 @@
            <div class="text-center">
                <h1>Form</h1>
            </div>
-           <div class="col-sm-4">
-                <div class="form-group">
-                    <label for="username" class="form-label">Username</label>
-                    <input type="text" id="username" name="username" class="form-control" placeholder="Username">
+           <form action="../app/AuthController.php" method="POST">
+               <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" id="username" name="username" class="form-control" placeholder="Username">
+                    </div>
                 </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="form-group">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="text" class="form-control" id="password" name="password" placeholder="Password">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="text" class="form-control" id="password" name="password" placeholder="Password">
+                    </div>
+                    <button class="btn btn-primary w-100 mt-4">Submit</button>
                 </div>
-                <button class="btn btn-primary w-100 mt-4">Submit</button>
-            </div>
+                <input type="hidden" name="action" value="access">
+           </form>
        
     </div>
 </div>

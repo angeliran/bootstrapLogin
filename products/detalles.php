@@ -11,11 +11,10 @@
             <div class="col-lg-10">
                 <div class="row d-flex flex-row justify-content-between mt-2 border-bottom">
                     <div class="col"><span>Productos</span></div>
-                    <div class="col-2"><button class="btn btn-info mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Añadir producto</button></div>
+                    <div class="col-2"><a href="index.php" class="btn btn-info mb-2" >Regresar a productos</a></div>
                 </div>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis ad sapiente totam, libero eveniet repellendus amet aliquam. Eveniet, rerum nihil alias iste quo dignissimos est consequuntur similique explicabo.</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis ad sapiente totam, libero eveniet repellendus amet aliquam. Eveniet, rerum nihil alias iste quo dignissimos est consequuntur similique explicabo dolor ipsam.</p>
                 <div class="row">
-                  <?php for($i = 0; $i<12; $i++): ?>
                       <div class="col-sm-3 col-md-3 mb-3">
                         <div class="card" style="width: 18rem;">
                             <img src="../public/images/foto.png" class="card-img-top" alt="...">
@@ -24,22 +23,19 @@
                               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                               <div class="row">
                                 <div class="col">
-                                  <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-warning w-100"><strong>Editar</strong></a>
+                                  <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-warning w-100">Editar</a>
                                 </div>
                                 <div class="col">
-                                  <a href="#" class="btn btn-danger w-100" onclick="remove(this)"><strong>Eliminar</strong></a>
+                                  <a href="#" class="btn btn-danger w-100" onclick="remove(this)">Eliminar</a>
                                 </div>
                               </div>
-                              <a href="detalles.php"  class="btn btn-info mt-2 w-100"><strong>Detalles</strong></a>
                             </div>
                         </div>
                       </div>
-                  <?php endfor; ?>
                 </div>
             </div>
         </div>
     </div>
-
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -95,5 +91,5 @@
   })
   }
 </script>
-  </body>
+</body>
 </html>
