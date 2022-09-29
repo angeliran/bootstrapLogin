@@ -4,6 +4,13 @@
     <?php include "../layout/head.template.php"; ?>
 </head>
 <body>
+  <?php 
+        session_start();
+        $token = strip_tags($_SESSION["token"]);
+        include "../app/ProductController.php";
+        $productController = new ProductController();
+        $productos = $productController->getProductos($token);
+  ?>
     <?php include "../layout/navbar.template.php"; ?>
     <div class="container-fluid">
         <div class="row">
@@ -15,26 +22,27 @@
                 </div>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis ad sapiente totam, libero eveniet repellendus amet aliquam. Eveniet, rerum nihil alias iste quo dignissimos est consequuntur similique explicabo.</p>
                 <div class="row">
-                  <?php for($i = 0; $i<12; $i++): ?>
-                      <div class="col-sm-3 col-md-3 mb-3">
-                        <div class="card" style="width: 18rem;">
-                            <img src="../public/images/foto.png" class="card-img-top" alt="...">
+                  <?php foreach($productos as $producto): ?>
+                      <div class="col-lg-3 col-md-5 col-sm-6 col-xs-12 mb-3">
+                        <div class="card" style="height: 37rem; cursor: pointer;">
+                            <img src="<?php echo $producto["cover"]; ?>" class="card-img-top" width="100" height="250" alt="...">
                             <div class="card-body">
-                              <h5 class="card-title">Card title</h5>
-                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                              <div class="row">
-                                <div class="col">
+                              <h5 class="card-title"><?php echo $producto["name"]; ?></h5>
+                              <p class="card-text"><?php echo $producto["description"]; ?></p>
+                            </div>
+                              <div class="row d-flex flex-row justify-content-between p-3">
+                                <hr>
+                                <div class="col-6">
                                   <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-warning w-100"><strong>Editar</strong></a>
                                 </div>
-                                <div class="col">
+                                <div class="col-6">
                                   <a href="#" class="btn btn-danger w-100" onclick="remove(this)"><strong>Eliminar</strong></a>
                                 </div>
+                                <div class="col"><a href="detalles.php"  class="btn btn-info mt-2 w-100"><strong>Detalles</strong></a></div>
                               </div>
-                              <a href="detalles.php"  class="btn btn-info mt-2 w-100"><strong>Detalles</strong></a>
-                            </div>
                         </div>
                       </div>
-                  <?php endfor; ?>
+                  <?php endforeach; ?>
                 </div>
             </div>
         </div>

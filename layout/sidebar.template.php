@@ -5,7 +5,7 @@
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">Productos</a>
+                <a class="nav-link" href="http://localhost/bootstrapLogin/products/index.php">Productos</a>
             </li>
             </ul>
     </aside>

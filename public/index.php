@@ -9,23 +9,31 @@
     <title>Bootstrap</title>
 </head>
 <body>
+    <?php error_reporting(0);?>
    <div class="container" >
        <div class="row flex-column d-flex justify-content-center align-items-center" style="height: 50rem">
+        <form class="flex-column d-flex justify-content-center align-items-center " action="../app/AuthController.php" method="POST">
            <div class="text-center">
                <h1>Form</h1>
            </div>
-           <form action="../app/AuthController.php" method="POST">
-               <div class="col-sm-4">
+               <div class="col-lg-4">
                     <div class="form-group">
                         <label for="username" class="form-label">Username</label>
                         <input type="text" id="username" name="username" class="form-control" placeholder="Username">
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-lg-4">
                     <div class="form-group">
                         <label for="password" class="form-label">Password</label>
-                        <input type="text" class="form-control" id="password" name="password" placeholder="Password">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Password"> <!-- Le*J9eZbBU7w72 -->
                     </div>
+                    <?php if(isset($_GET["error"]))
+                        { 
+                            echo '<div class="alert alert-danger mt-3" role="alert">
+                                    '.$_GET["error"].'
+                                    </div>';
+                        }
+                    ?>
                     <button class="btn btn-primary w-100 mt-4">Submit</button>
                 </div>
                 <input type="hidden" name="action" value="access">

@@ -40,9 +40,9 @@ if(isset($_POST["action"])){
                 $_SESSION["lastname"] = $response->data->lastname;
                 $_SESSION["avatar"] = $response->data->avatar;
                 $_SESSION["token"] = $response->data->token;
-                header("location: ../products/index.php");
+                header("location: ../products");
             }else{
-                header("location: ../public/index.php");
+                header("location: ../public?error=Datos incorrectos");
             }
 
         }
