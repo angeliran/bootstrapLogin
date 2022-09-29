@@ -5,11 +5,9 @@
 </head>
 <body>
   <?php 
-        session_start();
-        $token = strip_tags($_SESSION["token"]);
         include "../app/ProductController.php";
         $productController = new ProductController();
-        $productos = $productController->getProductos($token);
+        $productos = $productController->getProductos();
   ?>
     <?php include "../layout/navbar.template.php"; ?>
     <div class="container-fluid">
@@ -57,27 +55,58 @@
         <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        <div class="row flex-column d-flex justify-content-center align-items-center">
-          <div class="col">
-              <div class="form-group">
-                  <label for="username" class="form-label">Username</label>
-                  <input type="text" id="username" name="username" class="form-control" placeholder="Username">
-              </div>
-          </div>
-          <div class="col">
-              <div class="form-group">
-                  <label for="password" class="form-label">Password</label>
-                  <input type="text" class="form-control" id="password" name="password" placeholder="Password">
-              </div>
-              <button class="btn btn-primary w-100 mt-4">Submit</button>
+      <form action="../app/ProductController.php" method="POST">
+        <div class="modal-body">
+          <div class="row flex-column d-flex justify-content-center align-items-center">
+            <div class="col">
+                <div class="form-group">
+                    <label for="name" class="form-label">Nombre del producto</label>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Nombre del producto">
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="slug" class="form-label">Slug</label>
+                    <input type="text" class="form-control" id="slug" name="slug" placeholder="Slug">
+                </div>
+                
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="description" class="form-label">Descripción</label>
+                    <input type="text" class="form-control" id="description" name="description" placeholder="Descripción">
+                </div>
+                
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="features" class="form-label">Features</label>
+                    <input type="text" class="form-control" id="features" name="features" placeholder="Features">
+                </div>
+                
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="brand_id" class="form-label">Brand</label>
+                    <input type="text" class="form-control" id="brand_id" name="brand_id" placeholder="Brand">
+                </div>
+                
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="cover" class="form-label">Cover</label>
+                    <input type="text" class="form-control" id="cover" name="cover" placeholder="Cover">
+                </div>
+                
+            </div>
           </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+        <div class="modal-footer">
+          <input type="hidden" name="action" value="create">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
