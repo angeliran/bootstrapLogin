@@ -55,7 +55,7 @@
         <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form action="../app/ProductController.php" method="POST">
+      <form action="../app/ProductController.php" method="POST" enctype="multipart/form-data">
         <div class="modal-body">
           <div class="row flex-column d-flex justify-content-center align-items-center">
             <div class="col">
@@ -95,7 +95,7 @@
             <div class="col">
                 <div class="form-group">
                     <label for="cover" class="form-label">Cover</label>
-                    <input type="text" class="form-control" id="cover" name="cover" placeholder="Cover">
+                    <input type="file" class="form-control" id="cover" name="cover" accept="image/*" data-max-size="1507459">
                 </div>
                 
             </div>
