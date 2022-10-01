@@ -5,9 +5,22 @@
 </head>
 <body>
     <?php 
-      include "../app/ProductController.php";
-      $productController = new ProductController();
-      $productController->getProduct();
+    include "../app/ProductController.php";
+    $productController = new ProductController();
+    $productos = $productController->getProductos();
+    $product = false;
+
+    if(isset($_GET['slug'])){
+      foreach($productos as $producto){
+        if($producto['slug'] == $_GET['slug']){
+          $product = $productController->getProduct($producto['id']);
+          break;
+        }
+      }
+    }
+    if(!$product){
+      header('Location: index.php?error=Producto no encontrado');
+    }
       include "../layout/navbar.template.php"; 
     ?>
     <div class="container-fluid">
@@ -15,28 +28,34 @@
             <?php include "../layout/sidebar.template.php"; ?>
             <div class="col-lg-10">
                 <div class="row d-flex flex-row justify-content-between mt-2 border-bottom">
-                    <div class="col"><span>Productos</span></div>
+                    <div class="col"><span>Detalle de producto</span></div>
                     <div class="col-2"><a href="index.php" class="btn btn-info mb-2" >Regresar a productos</a></div>
                 </div>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis ad sapiente totam, libero eveniet repellendus amet aliquam. Eveniet, rerum nihil alias iste quo dignissimos est consequuntur similique explicabo dolor ipsam.</p>
-                <div class="row">
-                      <div class="col-sm-3 col-md-3 mb-3">
-                        <div class="card" style="width: 18rem;">
-                            <img src="../public/images/foto.png" class="card-img-top" alt="...">
-                            <div class="card-body">
-                              <h5 class="card-title">Card title</h5>
-                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                              <div class="row">
-                                <div class="col">
-                                  <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-warning w-100">Editar</a>
-                                </div>
-                                <div class="col">
-                                  <a href="#" class="btn btn-danger w-100" onclick="remove(this)">Eliminar</a>
-                                </div>
-                              </div>
-                            </div>
-                        </div>
-                      </div>
+                <div class="row d-flex justify-content-start mt-4">
+                  <div class="col-lg-4">
+                    <img src="<?= $product['cover']?>" width="500" height="600" alt="">
+                  </div>
+                  <div class="col-lg-6 m-5 d-flex flex-column justify-content-between">
+                    <h3><?= $product['name']?></h3>
+                    <h5 class="fst-italic" style="color: gray;"><?= $product['slug']?></h5>
+                    <h5>Descripcion</h5>
+                    <p><?= $product['description']?></p>
+                    <h5>Features</h5>
+                    <p><?= $product['features']?></p>
+
+                    <div>
+                    <p><strong>Marca: </strong><?= $product['brand']['name']?></p>
+                    <strong>Etiquetas: </strong>
+                    <?php foreach($product['tags'] as $tag): ?>
+                      <li><?= $tag['name']?></li>
+                    <?php endforeach;?>
+
+                    <strong>Categorias: </strong>
+                    <?php foreach($product['categories'] as $cat): ?>
+                      <li><?= $cat['name']?></li>
+                    <?php endforeach;?>
+                    </div>
+                  </div>
                 </div>
             </div>
         </div>

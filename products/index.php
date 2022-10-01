@@ -41,7 +41,11 @@
                                 <div class="col-6">
                                   <a href="#" class="btn btn-danger w-100" onclick="remove(this)"><strong>Eliminar</strong></a>
                                 </div>
-                                <div class="col"><a href="detalles.php"  class="btn btn-info mt-2 w-100"><strong>Detalles</strong></a></div>
+                                <div class="col">
+                                  <a href="details.php?slug=<?= $producto["slug"]?>"  class="btn btn-info mt-2 w-100">
+                                    <strong>Detalles</strong>
+                                  </a>
+                                </div>
                               </div>
                         </div>
                       </div>

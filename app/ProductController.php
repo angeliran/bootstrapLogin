@@ -1,7 +1,7 @@
 <?php
 session_start();
 if(isset($_POST["action"])){
-    
+    $productController = new ProductController();
     switch ($_POST["action"]) {
         case 'create':
             $name = strip_tags($_POST["name"]);
@@ -10,10 +10,8 @@ if(isset($_POST["action"])){
             $features = strip_tags($_POST["features"]);
             $brand_id = strip_tags($_POST["brand_id"]);
             
-            $productController = new ProductController();
             $productController->storeProduct($name, $slug, $description, $features, $brand_id);
             break;
-        
         default:
             # code...
             break;
@@ -84,11 +82,11 @@ Class ProductController {
         return $response["data"];
     }
 
-    public function getProduct(){
+    public function getProduct($id){
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-        CURLOPT_URL => 'https://crud.jonathansoto.mx/api/products/1', //id producto
+        CURLOPT_URL => 'https://crud.jonathansoto.mx/api/products/'.$id, //id product
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => '',
         CURLOPT_MAXREDIRS => 10,
@@ -98,14 +96,17 @@ Class ProductController {
         CURLOPT_CUSTOMREQUEST => 'GET',
         CURLOPT_HTTPHEADER => array(
             'Authorization: Bearer '.$_SESSION['token'],
-            'Cookie: XSRF-TOKEN=eyJpdiI6Iktxakp6MTA5TmlLQ2Vxb1BvYkZQV0E9PSIsInZhbHVlIjoiVENXTkpUb0xQc3BtcEhrZElOSmVVdEd2aFZ3MmZxU3BxVHluVVpGMGtpdnkyQWNYWGtMRVRJdGlRZ0JLMCtHakJHcW5WMkhWYStadVBOR3ZCclhNTktYZXllMndyK01HRDY3VitERytMVkQ0NkxNb3U1cU1wQ3F1M1lPNUdkQjAiLCJtYWMiOiJlYTdkMGVjMjAyYzIzNzc2NjJmYWQ1YzZiY2YwZjc3ZGY5NjhhNmZkMTk4ZTgxZTFkMGNmYTYzYzljZTBmMTg1IiwidGFnIjoiIn0%3D; laravel_session=eyJpdiI6ImdIZUpIRlZpRmJsL3BSdC93a29iOGc9PSIsInZhbHVlIjoibUN0ekd3QW1RUWxGbVQ2R0FNa0U5NnFONGhUUjRkQU4rWCtScEVWbFFvNUk1VzZKWEx3aVZPK25zRlBkYkxZbklidzArcllqaGRjY2FMY3NiMjc5Ky85N0hueUFtUXgrbGdoWUNhdGpJb1EwdWk1ZzlqckYvaWV1RkR6eHluZWUiLCJtYWMiOiIyYWI2MTA3MWYyMTdiMmEyNzM0MzI1NjRiMzRiNDAxNGI2MmQxMzZhZDk3ZmYzZTM1OWQ4NzQxZmExNTRkMGY3IiwidGFnIjoiIn0%3D'
+            'Cookie: XSRF-TOKEN=eyJpdiI6ImFoR0lIZ2pDMlhEQzlMdDMvSG4rYlE9PSIsInZhbHVlIjoiM0Z6M1lZUmQwejUzSzBMM2RrdDJTN21YWTdPakxEeGZFcXhLOEpoekxkSnBGSXc2Qlo2RktPTmFwWWRvODAwOHUrTmw1NjVRZHFXWi9STkF1U3lWVUJRcjlITU14djRtVCtnY0txMzQycnlVdWhCKytyckU3ZW9CSjVKVXRqOVQiLCJtYWMiOiI2MTc3NTZiZDBiOWUwMjc2ZTc4OTZlOTRiOWIyOGY5ZWQ1NDNjZDYyNzgxM2I4NGJjYjY2ZmY3NTc1YTY1YWRkIiwidGFnIjoiIn0%3D; laravel_session=eyJpdiI6InNQQ2lIV1F5T2F2RFhkSEpMRlRGK2c9PSIsInZhbHVlIjoiK1J5K1RwRHQ3T3M1UlhJYW9qMjB5TzdNcHEyME82WHJZeGd2eURHZ3FybThsSHZkbmNsTEl3blRJYUZjcG1WWlB3K3RPVks0SWl4Tng1Y3BqcHg0ekN2NlpDR1JEYTdCY0QxRGpwcG1mOUxKT3dzN0pWM1czdm5UL0svQWJwWjYiLCJtYWMiOiJmNDljM2MxNmFmZDBkYjRjMjNjODA3NGU4ODI0NjA0MjNiNGQ1ZWIwZTVjOWM2ZDMxN2I4ZWNlMGQ5MGQxYjNlIiwidGFnIjoiIn0%3D'
         ),
         ));
 
         $response = curl_exec($curl);
 
         curl_close($curl);
-        echo $response;
+  
+        $response = json_decode($response, true);
+        
+        return $response["data"];
 
     }
 }
