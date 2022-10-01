@@ -4,7 +4,12 @@
     <?php include "../layout/head.template.php"; ?>
 </head>
 <body>
-    <?php include "../layout/navbar.template.php"; ?>
+    <?php 
+      include "../app/ProductController.php";
+      $productController = new ProductController();
+      $productController->getProduct();
+      include "../layout/navbar.template.php"; 
+    ?>
     <div class="container-fluid">
         <div class="row">
             <?php include "../layout/sidebar.template.php"; ?>

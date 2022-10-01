@@ -49,7 +49,7 @@ Class ProductController {
 
         curl_close($curl);
         $response = json_decode($response);
-        
+     
         if(isset($response->code) && $response->code > 0){
             header("Location: ../products?success=true");
         }else{
@@ -82,6 +82,31 @@ Class ProductController {
         $response = json_decode($response, true);
         
         return $response["data"];
+    }
+
+    public function getProduct(){
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://crud.jonathansoto.mx/api/products/1', //id producto
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'GET',
+        CURLOPT_HTTPHEADER => array(
+            'Authorization: Bearer '.$_SESSION['token'],
+            'Cookie: XSRF-TOKEN=eyJpdiI6Iktxakp6MTA5TmlLQ2Vxb1BvYkZQV0E9PSIsInZhbHVlIjoiVENXTkpUb0xQc3BtcEhrZElOSmVVdEd2aFZ3MmZxU3BxVHluVVpGMGtpdnkyQWNYWGtMRVRJdGlRZ0JLMCtHakJHcW5WMkhWYStadVBOR3ZCclhNTktYZXllMndyK01HRDY3VitERytMVkQ0NkxNb3U1cU1wQ3F1M1lPNUdkQjAiLCJtYWMiOiJlYTdkMGVjMjAyYzIzNzc2NjJmYWQ1YzZiY2YwZjc3ZGY5NjhhNmZkMTk4ZTgxZTFkMGNmYTYzYzljZTBmMTg1IiwidGFnIjoiIn0%3D; laravel_session=eyJpdiI6ImdIZUpIRlZpRmJsL3BSdC93a29iOGc9PSIsInZhbHVlIjoibUN0ekd3QW1RUWxGbVQ2R0FNa0U5NnFONGhUUjRkQU4rWCtScEVWbFFvNUk1VzZKWEx3aVZPK25zRlBkYkxZbklidzArcllqaGRjY2FMY3NiMjc5Ky85N0hueUFtUXgrbGdoWUNhdGpJb1EwdWk1ZzlqckYvaWV1RkR6eHluZWUiLCJtYWMiOiIyYWI2MTA3MWYyMTdiMmEyNzM0MzI1NjRiMzRiNDAxNGI2MmQxMzZhZDk3ZmYzZTM1OWQ4NzQxZmExNTRkMGY3IiwidGFnIjoiIn0%3D'
+        ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        echo $response;
+
     }
 }
 

@@ -9,7 +9,7 @@
     <title>Bootstrap</title>
 </head>
 <body>
-    <?php error_reporting(0);?>
+    <?php error_reporting(E_ALL ^ E_NOTICE);  ?>
    <div class="container" >
        <div class="row flex-column d-flex justify-content-center align-items-center" style="height: 50rem">
         <form class="flex-column d-flex justify-content-center align-items-center " action="../app/AuthController.php" method="POST">

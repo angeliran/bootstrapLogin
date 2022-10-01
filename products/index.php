@@ -6,8 +6,13 @@
 <body>
   <?php 
         include "../app/ProductController.php";
+        include "../app/BrandController.php";
+
         $productController = new ProductController();
         $productos = $productController->getProductos();
+
+        $brandController = new BrandController();
+        $brands = $brandController->getBrands();
   ?>
     <?php include "../layout/navbar.template.php"; ?>
     <div class="container-fluid">
@@ -16,7 +21,7 @@
             <div class="col-lg-10">
                 <div class="row d-flex flex-row justify-content-between mt-2 border-bottom">
                     <div class="col"><span>Productos</span></div>
-                    <div class="col-2"><button class="btn btn-info mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Añadir producto</button></div>
+                    <div class="col-2"><button class="btn btn-info mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick='action("add")'>Añadir producto</button></div>
                 </div>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis ad sapiente totam, libero eveniet repellendus amet aliquam. Eveniet, rerum nihil alias iste quo dignissimos est consequuntur similique explicabo.</p>
                 <div class="row">
@@ -31,7 +36,7 @@
                               <div class="row d-flex flex-row justify-content-between p-3">
                                 <hr>
                                 <div class="col-6">
-                                  <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-warning w-100"><strong>Editar</strong></a>
+                                  <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-warning w-100" onclick='action("edit")'><strong>Editar</strong></a>
                                 </div>
                                 <div class="col-6">
                                   <a href="#" class="btn btn-danger w-100" onclick="remove(this)"><strong>Eliminar</strong></a>
@@ -52,7 +57,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="modalTitle"></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <form action="../app/ProductController.php" method="POST" enctype="multipart/form-data">
@@ -88,7 +93,12 @@
             <div class="col">
                 <div class="form-group">
                     <label for="brand_id" class="form-label">Brand</label>
-                    <input type="text" class="form-control" id="brand_id" name="brand_id" placeholder="Brand">
+                    <select class='form-control' name="brand_id" id="brand_id">
+                      <option disabled selected value="">Seleccione un brand</option>
+                      <?php foreach($brands as $brand): ?>
+                        <option value="<?= $brand['id']?>"><?= $brand['name'] ?></option>
+                      <?php endforeach;?>
+                    </select>
                 </div>
                 
             </div>
@@ -111,7 +121,18 @@
   </div>
 </div>
 <?php include "../layout/scripts.template.php"; ?>
+
 <script>
+  function action(action){
+    switch(action){
+      case 'add':
+        document.getElementById('modalTitle').innerText = 'Agregar producto';
+        break;
+      case 'edit':
+        document.getElementById('modalTitle').innerText = 'Editar producto';
+        break;
+    }
+  } 
   function remove(target){
     Swal.fire({
     title: 'Are you sure?',
