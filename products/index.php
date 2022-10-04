@@ -21,7 +21,7 @@
             <div class="col-lg-10">
                 <div class="row d-flex flex-row justify-content-between mt-2 border-bottom">
                     <div class="col"><span>Productos</span></div>
-                    <div class="col-2"><button class="btn btn-info mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick='action("add")'>Añadir producto</button></div>
+                    <div class="col-2"><button class="btn btn-info mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick='add()'>Añadir producto</button></div>
                 </div>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis ad sapiente totam, libero eveniet repellendus amet aliquam. Eveniet, rerum nihil alias iste quo dignissimos est consequuntur similique explicabo.</p>
                 <div class="row">
@@ -36,10 +36,10 @@
                               <div class="row d-flex flex-row justify-content-between p-3">
                                 <hr>
                                 <div class="col-6">
-                                  <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-warning w-100" onclick='action("edit")'><strong>Editar</strong></a>
+                                  <a href="#" data-product='<?= json_encode($producto)?>' data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-warning w-100" onclick='edit(this)'><strong>Editar</strong></a>
                                 </div>
                                 <div class="col-6">
-                                  <a href="#" class="btn btn-danger w-100" onclick="remove(this)"><strong>Eliminar</strong></a>
+                                  <a href="#" class="btn btn-danger w-100" onclick="remove(<?= $producto['id']?>)"><strong>Eliminar</strong></a>
                                 </div>
                                 <div class="col">
                                   <a href="details.php?slug=<?= $producto["slug"]?>"  class="btn btn-info mt-2 w-100">
@@ -108,7 +108,7 @@
             </div>
             <div class="col">
                 <div class="form-group">
-                    <label for="cover" class="form-label">Cover</label>
+                    <label for="cover" id="cover-label" class="form-label">Cover</label>
                     <input type="file" class="form-control" id="cover" name="cover" accept="image/*" data-max-size="1507459">
                 </div>
                 
@@ -116,7 +116,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <input type="hidden" name="action" value="create">
+          <input type="hidden" name="id" id="id" value="">
+          <input type="hidden" id="action" name="action" value="create">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-primary">Save changes</button>
         </div>
@@ -127,17 +128,34 @@
 <?php include "../layout/scripts.template.php"; ?>
 
 <script>
-  function action(action){
-    switch(action){
-      case 'add':
-        document.getElementById('modalTitle').innerText = 'Agregar producto';
-        break;
-      case 'edit':
-        document.getElementById('modalTitle').innerText = 'Editar producto';
-        break;
-    }
-  } 
-  function remove(target){
+  function add(){
+    document.getElementById('modalTitle').innerText = 'Agregar producto';
+    document.getElementById('action').value = "create";
+
+    //display block a cover
+    document.getElementById('cover').style.display = "block";
+    document.getElementById('cover-label').style.display = "block";    
+  }
+
+  function edit(target){
+    document.getElementById('modalTitle').innerText = 'Editar producto';
+    document.getElementById('action').value = "edit";
+
+    const producto =JSON.parse(target.getAttribute('data-product'));
+    
+    document.getElementById('name').value = producto.name;
+    document.getElementById('slug').value = producto.slug;
+    document.getElementById('description').value = producto.description;
+    document.getElementById('features').value = producto.features;
+    document.getElementById('brand_id').value = producto.brand_id;
+    document.getElementById('id').value = producto.id;
+
+    //display none a cover
+    document.getElementById('cover').style.display = "none";
+    document.getElementById('cover-label').style.display = "none";
+  }
+  
+  function remove(id){
     Swal.fire({
     title: 'Are you sure?',
     text: "You won't be able to revert this!",
@@ -148,6 +166,20 @@
     confirmButtonText: 'Yes, delete it!'
   }).then((result) => {
     if (result.isConfirmed) {
+      const data = new FormData();
+      data = {
+        id: id
+      }
+      axios.post('../app/ProductController.php', {
+        firstName: 'Fred',
+        lastName: 'Flintstone'
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
       Swal.fire(
         'Deleted!',
         'Your file has been deleted.',
