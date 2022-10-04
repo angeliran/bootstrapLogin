@@ -15,6 +15,10 @@ if(isset($_POST["action"])){
             $id = strip_tags($_POST["id"]);
             $productController->updateProduct($name, $slug, $description, $features, $brand_id, $id);
             break;
+        case 'delete':
+            
+            $productController->deleteProduct($_POST["id"]);
+            break;
         default:
             # code...
             break;
@@ -144,6 +148,31 @@ Class ProductController {
             header("Location: ../products?error=$response->message");
         }
 
+    }
+
+    public function deleteProduct($id){
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://crud.jonathansoto.mx/api/products/'.$id,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'DELETE',
+        CURLOPT_HTTPHEADER => array(
+            'Authorization: Bearer '.$_SESSION['token'],
+            'Cookie: XSRF-TOKEN=eyJpdiI6InZDdmNEcjhyL3dmUU1CS0c3YktObEE9PSIsInZhbHVlIjoiZjZEWXRFUVZEc3drMmQ0L2F6TnFLN2NjRWgxQnJqcWZzRnNXckx3cWdNWEc4N1RVcDF2VTN4ajZIWFFVTVloTlBvVUNPK290bG9DTWhYU2h2V3IyeW42eW9lTXNxbEhhbDZ5R1dienJDTmJTWmtHTkJITU4vQ2kxclhobmx3Z3kiLCJtYWMiOiI1ZDZlZGQzYzMzNWU0MjcyYWNhODc2ZjIxZDJmY2EyNzE1MzVkZjc2NWY0YmQ4N2NjYzJhYjU3MTE4YjY4NzhiIiwidGFnIjoiIn0%3D; laravel_session=eyJpdiI6InBldDlGTytHbXBBSFlwaU12OFZ2d3c9PSIsInZhbHVlIjoiNHpJYVhIclpFeTAzekpndXVFS3VlUkw2MGZtSFo0cWxCVXJWK1grSEJMSFp6cEhuRWcxR1NUWndnUGsxM2RZZ3lBcXloSVhES1o4MHoxbkZETVIvenMvYVB4aFZZQWErUGcrUnBGcmluWjJUZm16YkFZWFprbzI0MXcrVkR0c0MiLCJtYWMiOiIxNzQ3MDQwOTUyM2FhYTNjN2QzNzhmNWIzZDc0NDgzYzg1NjVmZDExMjZmZDVlMzEwM2QyNDg0M2M2MTZhY2IxIiwidGFnIjoiIn0%3D'
+        ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        
+        return $response;
     }
 }
 

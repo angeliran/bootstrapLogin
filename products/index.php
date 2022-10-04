@@ -167,15 +167,11 @@
   }).then((result) => {
     if (result.isConfirmed) {
       const data = new FormData();
-      data = {
-        id: id
-      }
-      axios.post('../app/ProductController.php', {
-        firstName: 'Fred',
-        lastName: 'Flintstone'
-      })
+      data.append("id", id);
+      data.append("action", "delete");
+      axios.post('../app/ProductController.php', data)
       .then(function (response) {
-        console.log(response);
+        location.reload();
       })
       .catch(function (error) {
         console.log(error);
