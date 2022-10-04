@@ -142,7 +142,9 @@
     document.getElementById('action').value = "edit";
 
     const producto =JSON.parse(target.getAttribute('data-product'));
-    
+    // setear brand a null para que tome en el select el valor disabled por defecto
+    producto.brand_id ??= "";
+
     document.getElementById('name').value = producto.name;
     document.getElementById('slug').value = producto.slug;
     document.getElementById('description').value = producto.description;
