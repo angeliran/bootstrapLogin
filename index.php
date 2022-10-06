@@ -10,11 +10,11 @@
 </head>
 <body>
     <?php
-    include_once "../app/config.php";
+    include_once "app/config.php";
     error_reporting(E_ALL ^ E_NOTICE);  ?>
    <div class="container" >
        <div class="row flex-column d-flex justify-content-center align-items-center" style="height: 50rem">
-        <form class="flex-column d-flex justify-content-center align-items-center " action="../app/AuthController.php" method="POST">
+        <form class="flex-column d-flex justify-content-center align-items-center " action="auth" method="POST">
            <div class="text-center">
                <h1>Form</h1>
            </div>

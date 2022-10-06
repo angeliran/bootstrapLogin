@@ -1,4 +1,5 @@
 <?php
+echo "ASDASD";
 include_once "config.php";
 if(isset($_POST["action"])){
     if( isset($_POST['global_token']) && $_POST['global_token'] == $_SESSION['global_token'] ) {
