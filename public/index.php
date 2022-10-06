@@ -9,7 +9,9 @@
     <title>Bootstrap</title>
 </head>
 <body>
-    <?php error_reporting(E_ALL ^ E_NOTICE);  ?>
+    <?php
+    include_once "../app/config.php";
+    error_reporting(E_ALL ^ E_NOTICE);  ?>
    <div class="container" >
        <div class="row flex-column d-flex justify-content-center align-items-center" style="height: 50rem">
         <form class="flex-column d-flex justify-content-center align-items-center " action="../app/AuthController.php" method="POST">
@@ -37,6 +39,7 @@
                     <button class="btn btn-primary w-100 mt-4">Submit</button>
                 </div>
                 <input type="hidden" name="action" value="access">
+                <input type="hidden" name="token" value="<?= $_SESSION['global_token']?>">
            </form>
        
     </div>

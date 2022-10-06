@@ -1,5 +1,5 @@
 <?php
-session_start();
+include_once "config.php";
 if(isset($_POST["action"])){
     $productController = new ProductController();
     $name = strip_tags($_POST["name"]);
