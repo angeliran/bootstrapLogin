@@ -1,27 +1,30 @@
 <?php
 include_once "config.php";
 if(isset($_POST["action"])){
-    $productController = new ProductController();
-    $name = strip_tags($_POST["name"]);
-    $slug = strip_tags($_POST["slug"]);
-    $description = strip_tags($_POST["description"]);
-    $features = strip_tags($_POST["features"]);
-    $brand_id = strip_tags($_POST["brand_id"]);
-    switch ($_POST["action"]) {
-        case 'create':
-            $productController->storeProduct($name, $slug, $description, $features, $brand_id);
-            break;
-        case 'edit':
-            $id = strip_tags($_POST["id"]);
-            $productController->updateProduct($name, $slug, $description, $features, $brand_id, $id);
-            break;
-        case 'delete':
-            
-            $productController->deleteProduct($_POST["id"]);
-            break;
-        default:
-            # code...
-            break;
+    if( isset($_POST['global_token']) && $_POST['global_token'] == $_SESSION['global_token'] ) {
+        
+        $productController = new ProductController();
+        $name = strip_tags($_POST["name"]);
+        $slug = strip_tags($_POST["slug"]);
+        $description = strip_tags($_POST["description"]);
+        $features = strip_tags($_POST["features"]);
+        $brand_id = strip_tags($_POST["brand_id"]);
+        switch ($_POST["action"]) {
+            case 'create':
+                $productController->storeProduct($name, $slug, $description, $features, $brand_id);
+                break;
+            case 'edit':
+                $id = strip_tags($_POST["id"]);
+                $productController->updateProduct($name, $slug, $description, $features, $brand_id, $id);
+                break;
+            case 'delete':
+                
+                $productController->deleteProduct($_POST["id"]);
+                break;
+            default:
+                # code...
+                break;
+        }
     }
 }
 Class ProductController {

@@ -5,6 +5,7 @@
 </head>
 <body>
   <?php 
+        include_once "../app/config.php";
         include "../app/ProductController.php";
         include "../app/BrandController.php";
 
@@ -117,6 +118,7 @@
         </div>
         <div class="modal-footer">
           <input type="hidden" name="id" id="id" value="">
+          <input type="hidden" name="global_token" value="<?= $_SESSION['global_token']?>">
           <input type="hidden" id="action" name="action" value="create">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-primary">Save changes</button>
@@ -172,6 +174,7 @@
       const data = new FormData();
       data.append("id", id);
       data.append("action", "delete");
+      data.append("global_token", '<?= $_SESSION['global_token']?> ')
       axios.post('../app/ProductController.php', data)
       .then(function (response) {
         location.reload();

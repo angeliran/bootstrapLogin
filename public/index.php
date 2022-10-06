@@ -39,7 +39,7 @@
                     <button class="btn btn-primary w-100 mt-4">Submit</button>
                 </div>
                 <input type="hidden" name="action" value="access">
-                <input type="hidden" name="token" value="<?= $_SESSION['global_token']?>">
+                <input type="hidden" name="global_token" value="<?= $_SESSION['global_token']?>">
            </form>
        
     </div>
