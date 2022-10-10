@@ -18,7 +18,6 @@ if(isset($_POST["action"])){
                 $productController->updateProduct($name, $slug, $description, $features, $brand_id, $id);
                 break;
             case 'delete':
-                
                 $productController->deleteProduct($_POST["id"]);
                 break;
             default:
@@ -59,9 +58,9 @@ Class ProductController {
         $response = json_decode($response);
      
         if(isset($response->code) && $response->code > 0){
-            header("Location: ../products?success=true");
+            header("Location: productos/success");
         }else{
-            header("Location: ../products?error=$response->message");
+            header("Location: productos/$response->message");
         }
 
     }
@@ -146,9 +145,9 @@ Class ProductController {
         $response = json_decode($response);
      
         if(isset($response->code) && $response->code > 0){
-            header("Location: ../products?success=true");
+            header("Location: productos/success");
         }else{
-            header("Location: ../products?error=$response->message");
+            header("Location: productos/$response->message");
         }
 
     }

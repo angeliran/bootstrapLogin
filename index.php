@@ -14,20 +14,20 @@
     error_reporting(E_ALL ^ E_NOTICE);  ?>
    <div class="container" >
        <div class="row flex-column d-flex justify-content-center align-items-center" style="height: 50rem">
-        <form class="flex-column d-flex justify-content-center align-items-center " action="auth" method="POST">
+        <form class="flex-column d-flex justify-content-center align-items-center " action="<?= BASE_PATH ?>auth" method="POST">
            <div class="text-center">
                <h1>Form</h1>
            </div>
                <div class="col-lg-4">
                     <div class="form-group">
                         <label for="username" class="form-label">Username</label>
-                        <input type="text" id="username" name="username" class="form-control" placeholder="Username">
+                        <input type="text" id="username" name="username" class="form-control" placeholder="Username" value="asolis_19@alu.uabcs.mx">
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="form-group">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Password"> <!-- Le*J9eZbBU7w72 -->
+                        <label for="password" class="form-label" >Password</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Password" value="Le*J9eZbBU7w72"> <!-- Le*J9eZbBU7w72 -->
                     </div>
                     <?php if(isset($_GET["error"]))
                         { 

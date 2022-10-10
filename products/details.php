@@ -29,7 +29,7 @@
             <div class="col-lg-10">
                 <div class="row d-flex flex-row justify-content-between mt-2 border-bottom">
                     <div class="col"><span>Detalle de producto</span></div>
-                    <div class="col-2"><a href="index.php" class="btn btn-info mb-2" >Regresar a productos</a></div>
+                    <div class="col-2"><a href="<?= BASE_PATH ?>productos" class="btn btn-info mb-2" >Regresar a productos</a></div>
                 </div>
                 <div class="row d-flex justify-content-start mt-4">
                   <div class="col-lg-4">

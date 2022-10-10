@@ -3,3 +3,9 @@ RewriteEngine on
 
 #Rutas
 RewriteRule ^auth$ app/AuthController.php
+RewriteRule ^login$ index.php
+RewriteRule ^product$ app/ProductController.php
+RewriteRule ^productos$ products/index.php
+RewriteRule ^productos/(.+)$ products/index.php?success=$1
+RewriteRule ^productos/(.+)$ products/index.php?error=$1
+RewriteRule ^detalle/(.+)$ products/details.php?slug=$1

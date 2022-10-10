@@ -46,7 +46,7 @@ if(isset($_POST["action"])){
                 $_SESSION["lastname"] = $response->data->lastname;
                 $_SESSION["avatar"] = $response->data->avatar;
                 $_SESSION["token"] = $response->data->token;
-                header("location: ../products");
+                header("location: ".BASE_PATH."products");
             }else{
                 header("location: ../public?error=Datos incorrectos");
             }

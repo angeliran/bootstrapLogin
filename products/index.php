@@ -43,7 +43,7 @@
                                   <a href="#" class="btn btn-danger w-100" onclick="remove(<?= $producto['id']?>)"><strong>Eliminar</strong></a>
                                 </div>
                                 <div class="col">
-                                  <a href="details.php?slug=<?= $producto["slug"]?>"  class="btn btn-info mt-2 w-100">
+                                  <a href="<?= BASE_PATH ?>detalle/<?= $producto["slug"]?>"  class="btn btn-info mt-2 w-100">
                                     <strong>Detalles</strong>
                                   </a>
                                 </div>
@@ -65,7 +65,7 @@
         <h5 class="modal-title" id="modalTitle"></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form action="../app/ProductController.php" method="POST" enctype="multipart/form-data">
+      <form action="<?= BASE_PATH ?>product" method="POST" enctype="multipart/form-data">
         <div class="modal-body">
           <div class="row flex-column d-flex justify-content-center align-items-center">
             <div class="col">
@@ -174,19 +174,21 @@
       const data = new FormData();
       data.append("id", id);
       data.append("action", "delete");
-      data.append("global_token", '<?= $_SESSION['global_token']?> ')
-      axios.post('../app/ProductController.php', data)
+      data.append("global_token", '<?= $_SESSION['global_token']?>')
+      axios.post('<?= BASE_PATH ?>product', data)
       .then(function (response) {
+        console.log(response);
+        Swal.fire(
+        'Deleted!',
+        'Your file has been deleted.',
+        'success'
+      )
         location.reload();
       })
       .catch(function (error) {
         console.log(error);
       });
-      Swal.fire(
-        'Deleted!',
-        'Your file has been deleted.',
-        'success'
-      )
+      
     }
   })
   }
